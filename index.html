@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chez Oumy Leya – Cuisine senegalaise à Dakar</title>
+<meta name="description" content="Thieboudienne, yassa et mafé faits maison au cœur de Dakar.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;800&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  /* ===== 1. COULEURS ET BASE (modifie ici pour changer le style) ===== */
+  :root {
+    --ink: #10292B;      /* vert très foncé : texte et fonds */
+    --paper: #F2F5F1;    /* fond clair */
+    --saffron: #E3A008;  /* jaune : accent principal */
+    --chili: #B8321E;    /* rouge : boutons */
+    --line: #C9D3CB;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html { scroll-behavior: smooth; }S
+  body { font-family: "Source Sans 3", system-ui, sans-serif; background: var(--paper); color: var(--ink); line-height: 1.6; font-size: 1.05rem; }
+  h1, h2, h3 { font-family: "Bricolage Grotesque", system-ui, sans-serif; line-height: 1.1; }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--saffron); outline-offset: 3px; }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 0 1.25rem; }
+
+  /* ===== 2. EN-TÊTE ===== */
+  header { background: var(--ink); color: var(--paper); }
+  header .wrap { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .5rem; padding-top: 1rem; padding-bottom: 1rem; }
+  .logo { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 1.4rem; text-decoration: none; }
+  nav { display: flex; gap: 1.25rem; }
+  nav a { text-decoration: none; font-weight: 600; }
+  nav a:hover { color: var(--saffron); }
+
+  /* ===== 3. ACCUEIL ===== */
+  .hero { background: var(--ink); color: var(--paper); padding: 3rem 0 4rem; }
+  .hero h1 { font-weight: 800; font-size: clamp(2.6rem, 9vw, 5.5rem); max-width: 14ch; }
+  .hero p { max-width: 38ch; margin: 1.25rem 0 1.75rem; font-size: 1.2rem; }
+  .btn { display: inline-block; background: var(--chili); color: #fff; padding: .8rem 1.4rem; border-radius: 6px; font-weight: 600; text-decoration: none; }
+  .btn:hover { background: #962716; }
+  #statut { display: inline-block; margin-left: 1rem; font-weight: 600; color: var(--saffron); }
+
+  /* ===== 4. MENU ===== */
+  section { padding: 3.5rem 0; }
+  h2 { font-size: clamp(1.9rem, 5vw, 2.8rem); margin-bottom: 1.25rem; }
+  .filtres { display: flex; gap: .5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .filtres button { font: inherit; font-weight: 600; padding: .5rem 1rem; border: 2px solid var(--ink); background: transparent; color: var(--ink); border-radius: 999px; cursor: pointer; }
+  .filtres button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+  .plat { display: flex; justify-content: space-between; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--line); }
+  .plat h3 { font-size: 1.3rem; }
+  .plat p { max-width: 52ch; }
+  .prix { font-weight: 600; white-space: nowrap; color: var(--chili); }
+  .plat[hidden] { display: none; }
+
+  /* ===== 5. CONTACT ===== */
+  #contact { background: #E3EAE3; }
+  .contact-grid { display: grid; gap: 2rem; grid-template-columns: 1fr; }
+  @media (min-width: 700px) { .contact-grid { grid-template-columns: 1fr 1fr; } }
+  table { border-collapse: collapse; width: 100%; }
+  td { padding: .35rem 0; border-bottom: 1px solid var(--line); }
+  td:last-child { text-align: right; }
+  footer { background: var(--ink); color: var(--paper); text-align: center; padding: 1.5rem 1rem; font-size: .95rem; }
+
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="logo" href="#">Chez Oumy Leya</a>
+    <nav>
+      <a href="#menu">Menu</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="wrap">
+      <h1>Queen oumy gourmet, à Dakar.</h1>
+      <p>Thieboudienne, yassa et mafé préparés chaque jour avec des produits du marché.</p>
+      <a class="btn" href="https://wa.me/221788662121?text=Bonjour%2C%20je%20voudrais%20r%C3%A9server%20une%20table." target="_blank" rel="noopener">Réserver sur WhatsApp</a>
+      <span id="statut"></span>
+    </div>
+  </div>
+
+  <section id="menu">
+    <div class="wrap">
+      <h2>Notre menu</h2>
+      <div class="filtres" role="group" aria-label="Filtrer le menu">
+        <button type="button" data-cat="tout" aria-pressed="true">Tout</button>
+        <button type="button" data-cat="plat" aria-pressed="false">Plats</button>
+        <button type="button" data-cat="boisson" aria-pressed="false">Boissons</button>
+        <button type="button" data-cat="dessert" aria-pressed="false">Desserts</button>
+      </div>
+
+      <div class="plat" data-cat="plat">
+        <div><h3>Thieboudienne</h3><p>Riz au poisson, légumes du jour et sauce tomate mijotée.</p></div>
+        <span class="prix">4 500 FCFA</span>
+      </div>
+      <div class="plat" data-cat="plat">
+        <div><h3>Poulet yassa</h3><p>Poulet mariné au citron, oignons confits, riz blanc.</p></div>
+        <span class="prix">4 000 FCFA</span>
+      </div>
+      <div class="plat" data-cat="plat">
+        <div><h3>Mafé</h3><p>Ragoût de bœuf à la pâte d'arachide, servi avec du riz.</p></div>
+        <span class="prix">4 000 FCFA</span>
+      </div>
+      <div class="plat" data-cat="boisson">
+        <div><h3>Bissap</h3><p>Jus glacé de fleurs d'hibiscus, menthe fraîche.</p></div>
+        <span class="prix">1 000 FCFA</span>
+      </div>
+      <div class="plat" data-cat="boisson">
+        <div><h3>Jus de gingembre</h3><p>Pressé à la commande, bien relevé.</p></div>
+        <span class="prix">1 000 FCFA</span>
+      </div>
+      <div class="plat" data-cat="dessert">
+        <div><h3>Thiakry</h3><p>Semoule de mil, lait caillé sucré, vanille.</p></div>
+        <span class="prix">1 500 FCFA</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap contact-grid">
+      <div>
+        <h2>Nous trouver</h2>
+        <p>Rue 10 x Corniche, Dakar</p>
+        <p><a href="tel:+221788662121">78 866 21 21</a></p>
+        <p>Livraison possible dans Dakar.</p>
+      </div>
+      <div>
+        <h2>Horaires</h2>
+        <table>
+          <tr><td>Lundi – Vendredi</td><td>11h – 22h</td></tr>
+          <tr><td>Samedi</td><td>11h – 23h</td></tr>
+          <tr><td>Dimanche</td><td>Fermé</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>© 2026 Chez Oumy Leya – Site créé par ABY DIAW</footer>
+
+<script>
+  // ===== 6. FILTRE DU MENU =====
+  // Quand on clique sur un bouton, on affiche seulement les plats de cette catégorie.
+  const boutons = document.querySelectorAll('.filtres button');
+  const plats = document.querySelectorAll('.plat');
+
+  boutons.forEach(function (bouton) {
+    bouton.addEventListener('click', function () {
+      const cat = bouton.dataset.cat;
+      boutons.forEach(function (b) { b.setAttribute('aria-pressed', b === bouton); });
+      plats.forEach(function (p) {
+        p.hidden = !(cat === 'tout' || p.dataset.cat === cat);
+      });
+    });
+  });
+
+  // ===== 7. OUVERT OU FERMÉ ? =====
+  // Lit l'heure de Dakar et affiche si le restaurant est ouvert.
+  function maintenant() {
+    const d = new Date(new Date().toLocaleString('en-US', { timeZone: 'Africa/Dakar' }));
+    return { jour: d.getDay(), heure: d.getHours() };
+  }
+  const t = maintenant();
+  let ouvert = false;
+  if (t.jour >= 1 && t.jour <= 5) ouvert = t.heure >= 11 && t.heure < 22;
+  if (t.jour === 6) ouvert = t.heure >= 11 && t.heure < 23;
+  document.getElementById('statut').textContent = ouveSrt ? 'Ouvert maintenant' : 'Fermé pour le moment';
+</script>
+</body>
+</html>
